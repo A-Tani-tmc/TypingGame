@@ -89,7 +89,7 @@ async function RenderNextSentence() { //非同期関数
 }
 
 let startTime; //文字が新たに表示された時の時刻
-let originTime = 5; //タイマーの最大値
+let originTime = 20; //タイマーの最大値
 
 
 /* カウントアップを開始する */////////////////////////////////
@@ -99,7 +99,7 @@ function StartTimer() {
 
     /* () => {}  アロー関数 function(){} と同じ*/
     const count = setInterval(() => { //一定の遅延間隔を置いて関数をを繰り返し呼び出す
-        timer.innerText =  originTime - getTimerTime(); //１秒ずれて呼び出される
+        timer.innerText = originTime - getTimerTime(); //１秒ずれて呼び出される
         console.log(new Date()); //現在の時刻（確認用）
         if (timer.innerText <= 0) {
             timeUp(); //時間切れ
@@ -123,9 +123,36 @@ function timeUp() {
 
 /* 文字を動かすアニメーション */////////////////////////////////
 function animation() {
-    const move = document.getElementsByTagName("img")[0];
-    move.animate(
-        [{ transform: "translateX(-350%)" }, { transform: "translateX(350%)" }],
+    const move = document.getElementsByTagName("img");
+    move[0].animate(
+        [{ transform: "translateX(0%)" }, { transform: "translateX(800%)" }],
         { duration: originTime * 1000, fill: "forwards" }
     );
+    setTimeout(function () {
+        move[1].animate(
+            [{ transform: "translateX(0%)" }, { transform: "translateX(800%)" }],
+            { duration: originTime * 1000, fill: "forwards" }
+        )
+    }, originTime * 160);
+
+    setTimeout(function () {
+        move[2].animate(
+            [{ transform: "translateX(0%)" }, { transform: "translateX(800%)" }],
+            { duration: originTime * 1000, fill: "forwards" }
+        )
+    }, originTime * 160 * 2);
+
+    setTimeout(function () {
+        move[3].animate(
+            [{ transform: "translateX(0%)" }, { transform: "translateX(800%)" }],
+            { duration: originTime * 1000, fill: "forwards" }
+        )
+    }, originTime * 160 * 3);
+
+    setTimeout(function () {
+        move[4].animate(
+            [{ transform: "translateX(0%)" }, { transform: "translateX(800%)" }],
+            { duration: originTime * 1000, fill: "forwards" }
+        )
+    }, originTime * 160 * 4);
 }
