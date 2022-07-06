@@ -15,10 +15,20 @@ const IdOfcountTotalType = document.getElementById("total");
 let correctTypeRate = 0; //正答率
 const IdOfcorrectTypeRate = document.getElementById("rate");
 
+/* サウンドを付ける */
+const wrongSound = new Audio("audio_wrong.mp3");
+const correctSound = new Audio("audio_correct.mp3");
+const typeSound = new Audio("audio_typing-sound.mp3");
+
 
 /* inputテキスト入力。合っているかどうかの判定 */////////////////////////////////
 typeInputElement.addEventListener("input", () => { //打ち込まれる毎に第二引数の関数が呼び出される
     countTotalType++; //総タイピング数をカウント
+
+    /* タイプ音をつける */
+    typeSound.volume = 0.1;
+    typeSound.play();
+    typeSound.currentTime = 0;
 
     /* 文字と文字を比較する */
     const sentence = typeDisplayElement.querySelectorAll("span"); //ディスプレイに表示されているSpanタグを取得
@@ -42,6 +52,9 @@ typeInputElement.addEventListener("input", () => { //打ち込まれる毎に第
 
             if (arrayValue.length - 1 === index) { //最後の要素に注目
                 countMissType++; //タイピングミス数をカウント
+                wrongSound.volume = 0.1;
+                wrongSound.play();
+                wrongSound.currentTime = 0;
             }
 
             IdOfcountTotalType.innerText = countTotalType; //総タイピング数を表示
@@ -52,6 +65,9 @@ typeInputElement.addEventListener("input", () => { //打ち込まれる毎に第
 
     /* 入力が完了すれば次の文章を表示 */
     if (correct) { //correct = trueで入力完了した場合
+        correctSound.volume = 0.1;
+        correctSound.play();
+        correctSound.currentTime = 0;
         RenderNextSentence(); //次のランダムな文章を取得
     }
 });
