@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Game ~SusshiDa~</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>タイピング<br>ゲーム</h1>
+    <img src="https://www.ekie.jp/share/ekie/shop/201803/27/20180327shop_img47.jpgv.jpg">
+    <div class="timer" id="timer">0</div>
+    <div class="container">
+        <div class="type-display" id="typeDisplay"></div>
+        <textarea id="typeInput" class="type-input" autofocus></textarea>
+
+        <!--autofocus: 入力フォームに自動的にフォーカス-->
+        <p class="score">
+            総タイプ数: <span id="total">0</span>,
+            ミスタイプ数: <span id="miss">0</span>,
+            正答率: <span id="rate">0</span>
+        </p>
+
+        <!--円グラフ-->
+         <!--
+        <canvas id="myPieChart"></canvas>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+        <script type="text/javascript" src="chart.js"></script>
+　　　　-->
+    </div>
+    <p id="reference">参考：<a href="http://typingx0.net/sushida/">寿司打</a></p>
+    <script type="text/javascript" src="script.js"></script>
+
+</body>
+
+</html>
