@@ -110,7 +110,7 @@ async function RenderNextSentence() { //非同期関数
 }
 
 let startTime; //文字が新たに表示された時の時刻
-let originTime = 10; //タイマーの最大値
+let originTime = 30; //タイマーの最大値
 
 
 /* カウントアップを開始する */////////////////////////////////
