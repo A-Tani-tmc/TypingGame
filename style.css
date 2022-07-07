@@ -1,27 +1,24 @@
-/* 全体に対して設定 */
+/* 全体に対してサイズを設定 */
 * {
-    padding: 0;
+    padding: 0; 
     margin: 0;
     box-sizing: border-box;
 }
 
 
 body {
-    height: 100vh;
-    /* 要素の高さ設定 */
+    height: 100vh; /* 要素の高さ設定 */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    /* スクロールバーを表示させない */
+    overflow: hidden; /* スクロールバーを表示させない */
     background-image: url("https://syufufuu.com/wp-content/uploads/2020/10/%E5%AF%BF%E5%8F%B8%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88.jpg");
-
     font-family: "Poppins", sans-serif;
 }
 
 img {
     position: absolute;
-    left: -300px;
+    left: -250px;
     top: 20px;
     width: 250px;
     border-radius: 300px;
