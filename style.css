@@ -79,6 +79,10 @@ img {
     border-color: black;
 }
 
+.type-input::placeholder {
+    color: rgb(28, 27, 27);
+}
+
 .correct {
     color: rgb(0, 195, 254);
 }
