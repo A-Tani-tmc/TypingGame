@@ -45,11 +45,11 @@ typeInputElement.addEventListener("input", () => { //打ち込まれる毎に第
             characterSpan.classList.remove("incorrect"); //所属するツリーから要素を削除
             correct = false;
         } else if (characterSpan.innerText == arrayValue[index]) { //文章の文字 ＝ 入力の場合
-            characterSpan.classList.add("correct"); //指定した値を持つ新しい要素を対象オブジェクトの末尾に追加
+            characterSpan.classList.add("correct"); //色替え。指定した値を持つ新しい要素を対象オブジェクトの末尾に追加
             characterSpan.classList.remove("incorrect"); //所属するツリーから要素を削除
             IdOfcountTotalType.innerText = countTotalType; //総タイピング数を表示
         } else { //文章の文字 !＝ 入力の場合
-            characterSpan.classList.add("incorrect"); //指定した値を持つ新しい要素を対象オブジェクトの末尾に追加
+            characterSpan.classList.add("incorrect"); //色替え。指定した値を持つ新しい要素を対象オブジェクトの末尾に追加
             characterSpan.classList.remove("correct"); //所属するツリーから要素を削除
             correct = false;
 
@@ -129,6 +129,8 @@ function StartTimer() {
     }, 1000); //1000ミリ秒毎に処理を繰り返す
 }
 
+
+/* 開始時からの経過時間 */////////////////////////////////
 function getTimerTime() {
     return Math.floor(
         (new Date() - startTime) / 1000
@@ -136,7 +138,7 @@ function getTimerTime() {
 }
 
 
-/* 時間切れ時の処理 */////////////////////////////////
+/* 時間切れ時の処理 *///////////////////////////////////////
 function timeUp() {
     RenderNextSentence();
 }
