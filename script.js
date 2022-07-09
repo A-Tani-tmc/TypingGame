@@ -5,6 +5,7 @@ const RANDOM_SENTENCE_URL_API = "https://api.quotable.io/random"; //表示する
 const typeDisplayElement = document.getElementById("typeDisplay"); //文章が表示される要素
 const typeInputElement = document.getElementById("typeInput"); //タイピングする領域の要素
 const timer = document.getElementById("timer"); //タイマー
+const numberOfSentence = document.getElementById("numberOfSentence"); //文字数表示領域の要素
 
 RenderNextSentence(); //次のランダムな文章を取得する
 
@@ -38,26 +39,35 @@ typeInputElement.addEventListener("input", () => { //打ち込まれる毎に第
     const arrayValue = typeInputElement.value.split(""); //打ち込んだテキストを1文字毎に分割して配列に格納
 
     let correct = true; //表示される文章の文字が入力値と等しいかどうかを判定するフラグ
+    let flagOfOverIndex = 0; //入力数が表示文章を超えた場合に利用
 
     sentence.forEach((characterSpan, index) => { //与えられた関数を、配列の各要素に対して一度ずつ実行。index:添字
         if (arrayValue[index] == null) { //何も打ち込んでいない場合
             characterSpan.classList.remove("correct"); //所属するツリーから要素を削除
             characterSpan.classList.remove("incorrect"); //所属するツリーから要素を削除
             correct = false;
+
         } else if (characterSpan.innerText == arrayValue[index]) { //文章の文字 ＝ 入力の場合
             characterSpan.classList.add("correct"); //色替え。指定した値を持つ新しい要素を対象オブジェクトの末尾に追加
             characterSpan.classList.remove("incorrect"); //所属するツリーから要素を削除
             IdOfcountTotalType.innerText = countTotalType; //総タイピング数を表示
+
         } else { //文章の文字 !＝ 入力の場合
             characterSpan.classList.add("incorrect"); //色替え。指定した値を持つ新しい要素を対象オブジェクトの末尾に追加
             characterSpan.classList.remove("correct"); //所属するツリーから要素を削除
             correct = false;
+
 
             if (arrayValue.length - 1 === index) { //最後の要素に注目
                 countMissType++; //タイピングミス数をカウント
                 wrongSound.volume = 0.1; //音量
                 wrongSound.play(); //音を鳴らす
                 wrongSound.currentTime = 0; //再生開始位置に戻す
+            } else if (arrayValue.length > numberOfSentence.innerText) { //入力数が表示文章を超えた場合
+                if (flagOfOverIndex === 0) {
+                    countMissType++; //タイピングミス数をカウント
+                    flagOfOverIndex++;
+                }
             }
 
             IdOfcountTotalType.innerText = countTotalType; //総タイピング数を表示
@@ -68,7 +78,7 @@ typeInputElement.addEventListener("input", () => { //打ち込まれる毎に第
 
     /* 入力が完了すれば次の文章を表示 */
     if (correct) { //correct = trueで入力完了した場合
-        complete ++; //クリア数を加算
+        complete++; //クリア数を加算
         IdOfComplete.innerText = complete;
         correctSound.volume = 0.1; //音量
         correctSound.play(); //音を鳴らす
@@ -82,7 +92,7 @@ typeInputElement.addEventListener("input", () => { //打ち込まれる毎に第
 function getRandomSentence() {
     return fetch(RANDOM_SENTENCE_URL_API) //リクエストを送信
         .then((response) => response.json()) //response: リクエストのレスポンス。ストリームを取得して完全に読み取る。
-        .then((data) => data.content); //レスポンスデータのcontentキーを持った要素のvalueを取得
+        .then((data) => data); //レスポンスデータを取得。オブジェクトで返される。
 }
 
 
@@ -92,15 +102,16 @@ async function RenderNextSentence() { //非同期関数
     /* ディスプレイに表示 */
     typeDisplayElement.innerText = ""; //最初はsentenceが入る。
 
-    /* 文章を1文字ずつ分解して、spanタグを生成する */
-    sentence.split("").forEach((character) => {
+    /* 文章(sentenceのcontentキーを持つ要素)を1文字ずつ分解して、spanタグを生成する */
+    sentence.content.split("").forEach((character) => {
         const characterSpan = document.createElement("span");
         characterSpan.innerText = character;
         typeDisplayElement.appendChild(characterSpan);
     });
     /* テキストボックスの中身を消す。 */
     typeInputElement.value = null;
-    console.log(typeDisplayElement.innerText); //テキストボックスの中身表示
+    console.log("Sentence: ", sentence.content, "\nAuthor: ", sentence.author); //テキストボックスの中身表示
+    numberOfSentence.innerText = sentence.length;
 
     /* タイマーのリセット */
     StartTimer();
@@ -121,7 +132,7 @@ function StartTimer() {
     /* () => {}  アロー関数 function(){} と同じ*/
     const count = setInterval(() => { //一定の遅延間隔を置いて関数をを繰り返し呼び出す
         timer.innerText = originTime - getTimerTime(); //１秒ずれて呼び出される
-        console.log(new Date()); //現在の時刻（確認用）
+        // console.log(new Date()); //現在の時刻（確認用）
         if (timer.innerText <= 0) {
             timeUp(); //時間切れ
             clearInterval(count); //setIntervalの処理を停止
