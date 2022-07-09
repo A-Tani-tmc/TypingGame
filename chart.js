@@ -33,7 +33,15 @@ function drawPieChart (){
             responsive: false,
             title: {
                 display: true,
-                text: '正/誤割合'
+                text: '\n\n正/誤割合',
+                fontColor: 'yellow',
+                fontSize: '20'
+            },
+            legend: {
+                labels: {
+                    // このフォントプロパティ指定は、グローバルプロパティを上書きする
+                    fontColor: 'yellow'
+                },
             }
         }
     });
