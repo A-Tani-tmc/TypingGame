@@ -5,7 +5,6 @@
     box-sizing: border-box;
 }
 
-
 body {
     height: 100vh; /* 要素の高さ設定 */
     display: flex;
